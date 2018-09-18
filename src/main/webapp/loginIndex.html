@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>供应商注册管理平台</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="layui/css/layui.css">
     <script src="layui/layui.js"></script>
 
@@ -21,7 +22,7 @@
     </div>
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+            <button class="layui-btn" lay-submit lay-filter="form">立即提交</button>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>
@@ -32,12 +33,23 @@
     <script>
     layui.use('form', function(){
         var form = layui.form;
+        var $ = layui.jquery;
 
         //监听提交
-        form.on('submit(formDemo)', function(data){
-            layer.msg(JSON.stringify(data.field));
+        form.on('submit(form)', function(data){
+            $.post("/login", data.field,
+                function(obj) {
+                    if (obj.Status==1) {
+                        location.href = "/admin";
+                    } else if(obj.Status ==2){
+                        location.href = "/supplier";
+                    }else {
+                        layer.msg(obj.Message);
+                    }
+                }, "json");
             return false;
         });
+
     });
 
 </script>
