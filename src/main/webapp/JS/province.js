@@ -9,11 +9,10 @@
 var $form;
 var form;
 var $;
-layui.define(['jquery', 'form','element'], function () {
+layui.use(['jquery', 'form'], function () {
     $ = layui.jquery;
     form = layui.form;
     $form = $('form');
-    element = layui.element;
     treeSelect(defaults);
 });
 function treeSelect(config) {

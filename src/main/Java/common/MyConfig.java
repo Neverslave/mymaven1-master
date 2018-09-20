@@ -6,6 +6,9 @@ import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.template.Engine;
 import com.jfinal.template.source.ClassPathSourceFactory;
+import common.controller.LoginController;
+import common.router.AdminRouter;
+import common.router.SupplierRouter;
 
 public class MyConfig extends JFinalConfig {
     @Override
@@ -17,6 +20,9 @@ public class MyConfig extends JFinalConfig {
 
     @Override
     public void configRoute(Routes me) {
+        me.add(new AdminRouter());
+        me.add(new SupplierRouter());
+        me.add("/", LoginController.class);
 
     }
 
