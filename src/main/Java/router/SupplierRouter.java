@@ -1,7 +1,7 @@
-package common.router;
+package router;
 
 import com.jfinal.config.Routes;
-import common.controller.SupplierController;
+import controller.SupplierController;
 
 public class SupplierRouter extends Routes {
     @Override

@@ -36,8 +36,8 @@
         var $ = layui.jquery;
 
         //监听提交
-        form.on('submit(form)', function(data){
-            $.post("/login", data.field,
+        form.on('submit(*)', function(data){
+            $.post("/loginValidate", data.field,
                 function(obj) {
                     if (obj.Status==1) {
                         location.href = "/admin";

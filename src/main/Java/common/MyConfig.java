@@ -6,9 +6,9 @@ import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.template.Engine;
 import com.jfinal.template.source.ClassPathSourceFactory;
-import common.controller.LoginController;
-import common.router.AdminRouter;
-import common.router.SupplierRouter;
+import controller.LoginController;
+import router.AdminRouter;
+import router.SupplierRouter;
 
 public class MyConfig extends JFinalConfig {
     @Override

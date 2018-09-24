@@ -1,4 +1,4 @@
-package common.controller;
+package controller;
 
 import com.jfinal.core.Controller;
 

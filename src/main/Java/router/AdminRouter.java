@@ -1,8 +1,7 @@
-package common.router;
+package router;
 
 import com.jfinal.config.Routes;
-import common.controller.AdminController;
-import common.controller.LoginController;
+import controller.AdminController;
 
 public class AdminRouter extends Routes {
     @Override
