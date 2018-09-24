@@ -7,6 +7,6 @@ public class SupplierRouter extends Routes {
     @Override
     public void config() {
 
-        add("/supplier", SupplierController.class);
+        add("/suppliers", SupplierController.class);
     }
 }

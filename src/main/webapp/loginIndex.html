@@ -9,7 +9,7 @@
 
 </head>
 <body>
-<form>
+<form class="layui-form">
     <div class="layui-form-item">
         <label class="layui-form-label">用户名</label>
         <input type="text" name="username" required placeholder="请输入用户名" autocomplete="off"   class="layui-input layui-input-inline">
@@ -22,7 +22,7 @@
     </div>
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button class="layui-btn" lay-submit lay-filter="form">立即提交</button>
+            <button class="layui-btn" lay-submit lay-filter="submit">立即提交</button>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>
@@ -31,22 +31,36 @@
 </body>
 
     <script>
-    layui.use('form', function(){
+    layui.use(['form','jquery','layer'], function(){
         var form = layui.form;
         var $ = layui.jquery;
+        var layer = layui.layer;
 
         //监听提交
-        form.on('submit(*)', function(data){
-            $.post("/loginValidate", data.field,
-                function(obj) {
-                    if (obj.Status==1) {
-                        location.href = "/admin";
-                    } else if(obj.Status ==2){
-                        location.href = "/supplier";
-                    }else {
-                        layer.msg(obj.Message);
+        form.on('submit(submit)', function(data){
+            $.ajax(
+                {
+                    "type": "post",
+                    "dataType": "json",
+                    "data": data.field,
+                    "contentType": "application/x-www-form-urlencoded; charset=utf-8",
+                    "url" : "/loginValidate",
+                    "success": function(obj)
+                    {
+                        if (obj.status==1){
+                            location.href='/admin';
+                        }
+                        else if(obj.status==2){
+                            location.href='/suppliers'
+                        }
+                        else{
+                            layer.msg(obj.msg)
+                        }
+
                     }
-                }, "json");
+                });
+
+
             return false;
         });
 

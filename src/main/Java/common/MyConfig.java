@@ -1,12 +1,14 @@
 package common;
 
 import com.jfinal.config.*;
+import com.jfinal.kit.PathKit;
 import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.template.Engine;
 import com.jfinal.template.source.ClassPathSourceFactory;
 import controller.LoginController;
+import model._MappingKit;
 import router.AdminRouter;
 import router.SupplierRouter;
 
@@ -39,8 +41,8 @@ public class MyConfig extends JFinalConfig {
         ActiveRecordPlugin arp = new ActiveRecordPlugin(dp);
         arp.getEngine().setSourceFactory(new ClassPathSourceFactory()); //设置了模板引擎将从 class path 或者 jar 包中读取 sql 文件
         //arp.setBaseSqlTemplatePath(PathKit.getWebRootPath());//设置sql模板位置
-        //arp.addSqlTemplate("common.sql");
-        //_MappingKit.mapping(arp);
+        arp.addSqlTemplate("common.sql");
+        _MappingKit.mapping(arp);
         //arp.addMapping("user", Blog.class);//表与model相关联 数据库映射需要在加入plugin前
         me.add(arp);
 
