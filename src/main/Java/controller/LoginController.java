@@ -1,9 +1,14 @@
 package controller;
 
+import com.jfinal.aop.Before;
+import com.jfinal.aop.Clear;
+import com.jfinal.core.ActionKey;
 import com.jfinal.core.Controller;
 import com.jfinal.kit.HashKit;
 import com.jfinal.kit.Ret;
 import common.kit.IpKit;
+import intercepter.LoginValidator;
+import model.Users;
 import service.LoginService;
 
 public class LoginController extends Controller {
@@ -16,6 +21,8 @@ public class LoginController extends Controller {
 
 
     //登录校验
+
+    @Before(LoginValidator.class)
     public void loginValidate(){
 
         String username = getPara("username");
@@ -26,11 +33,37 @@ public class LoginController extends Controller {
         String loginIp = IpKit.getRealIp(getRequest());
         Ret ret = loginService.login(username,password,loginIp);
         if(ret.isOk()){
-            //加入Session
-            setSessionAttr("username",username);
-            setSessionAttr("role",ret.get("role"));
+            String sessionid = ret.getStr(LoginService.sessionIdName);
+            int maxAgeInSeconds = ret.getInt("maxAgeInSeconds");
+            setCookie(LoginService.sessionIdName, sessionid, maxAgeInSeconds, true);
+            setCookie("role",ret.getStr("sataus"),maxAgeInSeconds,true);
+            setAttr(LoginService.sessionIdName,sessionid);
         }
         renderJson(ret);
 
+    }	/**
+     * 退出登录
+     */
+    @Clear
+    @ActionKey("/logout")
+    public void logout() {
+        loginService.logout(getCookie(LoginService.sessionIdName));
+        removeCookie(LoginService.sessionIdName);
+        redirect("/");
     }
+
+    //验证码服务
+    public void captcha(){
+
+        renderCaptcha();
+
+    }
+
+
+   public void  updateLogintime(Users user){
+
+
+
+   }
+
 }

@@ -16,7 +16,8 @@ import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 public class _MappingKit {
 	
 	public static void mapping(ActiveRecordPlugin arp) {
-		arp.addMapping("login_log", "id", LoginLog.class);
+		arp.addMapping("login_log", "loginid", LoginLog.class);
+		arp.addMapping("session", "SessionId", Session.class);
 		arp.addMapping("supplier_approve", "id", SupplierApprove.class);
 		arp.addMapping("supplier_approve_record", "id", SupplierApproveRecord.class);
 		arp.addMapping("suppliers_final", "id", SuppliersFinal.class);

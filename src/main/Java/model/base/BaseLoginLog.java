@@ -9,6 +9,15 @@ import com.jfinal.plugin.activerecord.IBean;
 @SuppressWarnings({"serial", "unchecked"})
 public abstract class BaseLoginLog<M extends BaseLoginLog<M>> extends Model<M> implements IBean {
 
+	public M setLoginid(java.lang.Long loginid) {
+		set("loginid", loginid);
+		return (M)this;
+	}
+	
+	public java.lang.Long getLoginid() {
+		return getLong("loginid");
+	}
+
 	public M setId(java.lang.String id) {
 		set("id", id);
 		return (M)this;
@@ -16,15 +25,6 @@ public abstract class BaseLoginLog<M extends BaseLoginLog<M>> extends Model<M> i
 	
 	public java.lang.String getId() {
 		return getStr("id");
-	}
-
-	public M setUsername(java.lang.String username) {
-		set("username", username);
-		return (M)this;
-	}
-	
-	public java.lang.String getUsername() {
-		return getStr("username");
 	}
 
 	public M setIp(java.lang.String ip) {

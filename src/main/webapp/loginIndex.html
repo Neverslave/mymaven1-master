@@ -21,6 +21,15 @@
         </div>
     </div>
     <div class="layui-form-item">
+        <div class="layui-form-label">
+            <img title="点击刷新" class="captcha" src="/captcha" onclick="updateCaptcha();"></th>
+        </div>
+         <div class="layui-input-inline">
+        <input type="text" name="captcha" class="layui-input" id="captchaInput">
+        <span id="captchaMsg"></span>
+         </div>
+        </div>
+    <div class="layui-form-item">
         <div class="layui-input-block">
             <button class="layui-btn" lay-submit lay-filter="submit">立即提交</button>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
@@ -35,6 +44,11 @@
         var form = layui.form;
         var $ = layui.jquery;
         var layer = layui.layer;
+
+        function updateCaptcha() {
+            $(".captcha").attr("src", "/captcha?v=" + Math.random());
+            $("#captchaInput").val("");
+        }
 
         //监听提交
         form.on('submit(submit)', function(data){

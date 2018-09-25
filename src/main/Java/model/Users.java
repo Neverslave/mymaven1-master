@@ -8,4 +8,14 @@ import model.base.BaseUsers;
 @SuppressWarnings("serial")
 public class Users extends BaseUsers<Users> {
 	public static final Users dao = new Users().dao();
+
+
+	//移除password，盐值
+	public Users removeSensitiveInfo() {
+		remove("password", "salt");
+		return this;
+	}
+
+
+
 }
