@@ -6,10 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="layui/css/layui.css">
     <script src="layui/layui.js"></script>
+    <script src="JS/jquery-1.12.4.js"></script>
 
 </head>
 <body>
-<form class="layui-form">
+<div class="layui-header" style="height: 300px"></div>
+<form class="layui-form" style="width: 600px;margin: 0 auto;">
     <div class="layui-form-item">
         <label class="layui-form-label">用户名</label>
         <input type="text" name="username" required placeholder="请输入用户名" autocomplete="off"   class="layui-input layui-input-inline">
@@ -22,7 +24,7 @@
     </div>
     <div class="layui-form-item">
         <div class="layui-form-label">
-            <img title="点击刷新" class="captcha" src="/captcha" onclick="updateCaptcha();"></th>
+            <img title="点击刷新" class="captcha" style="width: 80px;height: 28px"  src="/captcha" onclick="updateCaptcha();">
         </div>
          <div class="layui-input-inline">
         <input type="text" name="captcha" class="layui-input" id="captchaInput">
@@ -45,10 +47,6 @@
         var $ = layui.jquery;
         var layer = layui.layer;
 
-        function updateCaptcha() {
-            $(".captcha").attr("src", "/captcha?v=" + Math.random());
-            $("#captchaInput").val("");
-        }
 
         //监听提交
         form.on('submit(submit)', function(data){
@@ -59,26 +57,58 @@
                     "data": data.field,
                     "contentType": "application/x-www-form-urlencoded; charset=utf-8",
                     "url" : "/loginValidate",
-                    "success": function(obj)
+                    "success": function(ret)
                     {
-                        if (obj.status==1){
-                            location.href='/admin';
+                        if (ret.captchMsg) {
+                            updateCaptcha();    // captcha 被验证过以后会立即失效，更新之
+                            layer.msg(ret.captchMsg, {
+                                    shift: 6
+                                    , shade: 0.3
+                                    , time: 2500
+                                    , offset: "165px"
+                                    , closeBtn: 1
+                                    , shadeClose: true
+                                } , function() {
+                                    updateCaptcha();
+                                }
+                            );
                         }
-                        else if(obj.status==2){
-                            location.href='/suppliers'
+                        if (ret.state == "fail") {
+                            layer.msg(ret.msg, {
+                                    shift: 6
+                                    , shade: 0.3
+                                    , time: 2500
+                                    , offset: "165px"
+                                    , closeBtn: 1
+                                    , shadeClose: true
+                                }, function () {
+                                    updateCaptcha();
+                                }
+                            );
+
+
+
                         }
-                        else{
-                            layer.msg(obj.msg)
+
+                        if (ret.status == 1) {
+                            location.href = '/admin';
+                        }
+                        if (ret.status == 2) {
+                            location.href = '/suppliers'
                         }
 
                     }
                 });
 
-
             return false;
+
         });
 
-    });
 
+    });
+    function updateCaptcha() {
+        $(".captcha").attr("src", "/captcha?v=" + Math.random());
+        $("#captchaInput").val("");
+    }
 </script>
 </html>
