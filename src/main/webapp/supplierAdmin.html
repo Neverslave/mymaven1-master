@@ -29,19 +29,13 @@
         <div class="layui-logo">供应商管理系统</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item"><a href="">控制台</a></li>
-            <li class="layui-nav-item"><a href="">商品管理</a></li>
-            <li class="layui-nav-item"><a href="">用户</a></li>
-            <li class="layui-nav-item">待审批信息<span class="layui-badge">99+</span></li>
         </ul>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
-                <a href="javascript:;">
-                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-                    贤心
+                <a id="usrname" href="javascript:;">
                 </a>
             </li>
-            <li class="layui-nav-item"><a href="">退出</a></li>
+            <li class="layui-nav-item"><a href="/logout">退出</a></li>
         </ul>
     </div>
 
@@ -149,6 +143,14 @@
     </div>
 </div>
 
-    <script src="JS/province.js"></script>
+    <script src="JS/province.js">
+
+        var menuClick = function(menuUrl) {
+
+            $("#iframe-page-content").attr('src',menuUrl);
+
+        };
+
+    </script>
 </body>
 </html>

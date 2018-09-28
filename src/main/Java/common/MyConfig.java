@@ -1,7 +1,6 @@
 package common;
 
 import com.jfinal.config.*;
-import com.jfinal.kit.PathKit;
 import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;

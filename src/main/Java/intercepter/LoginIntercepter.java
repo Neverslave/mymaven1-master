@@ -4,6 +4,8 @@ import com.jfinal.aop.Interceptor;
 import com.jfinal.aop.Invocation;
 import com.jfinal.config.Interceptors;
 import com.jfinal.core.Controller;
+
+import static common.kit.UrlKit.redirectUrl;
 //登录前校验是否存在cookie
 
 public class LoginIntercepter implements Interceptor {
@@ -13,7 +15,7 @@ public class LoginIntercepter implements Interceptor {
        String username = controller.getCookie("userid");
 
        if(username ==null) {
-           controller.redirect("http://localhost"); //重定向到登录页
+           controller.redirect(redirectUrl); //重定向到登录页
            return;
 
        }

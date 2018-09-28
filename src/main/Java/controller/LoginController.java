@@ -8,7 +8,7 @@ import com.jfinal.kit.HashKit;
 import com.jfinal.kit.Ret;
 import common.kit.IpKit;
 import intercepter.LoginValidator;
-import model.Users;
+import model.User;
 import service.LoginService;
 
 public class LoginController extends Controller {
@@ -18,8 +18,6 @@ public class LoginController extends Controller {
     public void index(){
         render("loginIndex.html");
     }
-
-
     //登录校验
 
     @Before(LoginValidator.class)
@@ -60,10 +58,14 @@ public class LoginController extends Controller {
     }
 
 
-   public void  updateLogintime(Users user){
+   public void  updateLogintime(User user){
 
 
 
+   }
+
+   public  void  gete(){
+        render("/baseAdmin.html");
    }
 
 }

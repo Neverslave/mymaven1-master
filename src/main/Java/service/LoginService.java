@@ -5,12 +5,9 @@ import com.jfinal.kit.Ret;
 import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
-import com.jfinal.plugin.ehcache.CacheKit;
 import model.Session;
-import model.Users;
-import org.eclipse.jetty.server.Authentication;
+import model.User;
 
-import javax.servlet.http.Cookie;
 import java.util.Date;
 
 public class LoginService {
@@ -20,12 +17,12 @@ public class LoginService {
 
     // "userid" 仅用于 cookie 名称，其它地方如 cache 中全部用的 "sessionId" 来做 key
     public static final String sessionIdName = "userid";
-    private Users usersdao = new Users().dao();
+    private User userdao = new User().dao();
 
 
     //登录校验 返回Ret
     public Ret login(String username , String password,String ip){
-        Users user = usersdao.findFirst("select * from users where username=? limit 1", username);
+        User user = userdao.findFirst("select * from user where username=? limit 1", username);
 
         //若未找到账号
         if(user == null){
@@ -81,7 +78,7 @@ public class LoginService {
      * 2：在数据库里面取，如果取到了，则检测是否已过期，如果过期则清除记录，
      *     如果没过期则先放缓存一份，然后再返回
      */
-    public Users loginWithSessionId(String sessionid,String loginIp){
+    public User loginWithSessionId(String sessionid,String loginIp){
         Session session = Session.dao.findById(sessionid);
         if (session == null) {      // session 不存在
             return null;
@@ -90,7 +87,7 @@ public class LoginService {
             session.delete();		// 被动式删除过期数据，此外还需要定时线程来主动清除过期数据
             return null;
         }
-        Users user = usersdao.findById(session.getUserid());
+        User user = userdao.findById(session.getUserid());
         // 找到 loginAccount 并且 是正常状态 才允许登录
         if (user!= null ) {
             user.removeSensitiveInfo();                                 // 移除 password 与 salt 属性值

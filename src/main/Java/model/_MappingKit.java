@@ -17,12 +17,14 @@ public class _MappingKit {
 	
 	public static void mapping(ActiveRecordPlugin arp) {
 		arp.addMapping("login_log", "loginid", LoginLog.class);
+		arp.addMapping("menu", "menu_id", Menu.class);
+		arp.addMapping("menu_role", "id", MenuRole.class);
 		arp.addMapping("session", "SessionId", Session.class);
 		arp.addMapping("supplier_approve", "id", SupplierApprove.class);
 		arp.addMapping("supplier_approve_record", "id", SupplierApproveRecord.class);
 		arp.addMapping("suppliers_final", "id", SuppliersFinal.class);
 		arp.addMapping("suppliers_temp", "id", SuppliersTemp.class);
-		arp.addMapping("users", "id", Users.class);
+		arp.addMapping("user", "id", User.class);
 	}
 }
 
